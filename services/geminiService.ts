@@ -40,8 +40,8 @@ INTERACTIVITY:
 For actions that change the current page state (e.g., archiving, submitting, toggling), call:
   window.AgentSamABS.performAction('Description of intent', 'Optional payload')
 Examples:
-  <button onclick="FlashLiteAPI.performAction('Archive email 42')">Archive</button>
-  <form onsubmit="event.preventDefault(); FlashLiteAPI.performAction('Search', this.q.value)">
+  <button onclick="AgentSamABS.performAction('Archive email 42')">Archive</button>
+  <form onsubmit="event.preventDefault(); AgentSamABS.performAction('Search', this.q.value)">
 
 CONTENT:
 Fill every page with rich, plausible, detailed content. Make it feel like a real website.
