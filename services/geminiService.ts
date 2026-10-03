@@ -38,7 +38,7 @@ Every link should have a meaningful href.
 
 INTERACTIVITY:
 For actions that change the current page state (e.g., archiving, submitting, toggling), call:
-  window.FlashLiteAPI.performAction('Description of intent', 'Optional payload')
+  window.AgentSamABS.performAction('Description of intent', 'Optional payload')
 Examples:
   <button onclick="FlashLiteAPI.performAction('Archive email 42')">Archive</button>
   <form onsubmit="event.preventDefault(); FlashLiteAPI.performAction('Search', this.q.value)">
