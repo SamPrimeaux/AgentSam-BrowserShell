@@ -1,8 +1,14 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { OuterFrame, ShellPage } from './components/OuterFrame';
-import { AgentSamAutoBrowserShell } from './components/AgentSamAutoBrowserShell';
-import { Sandbox } from './components/Sandbox';
-import { NewTab } from './components/NewTab';
+import {
+  AgentSamAbsBrowser,
+  AbsBuildHome,
+  AbsGeneratedPreview,
+  AbsRuntimeSurface,
+} from './packages/agentsam-abs/src/react';
+import { createAbsRuntimeScene } from './packages/agentsam-abs/src/runtime';
+import './packages/agentsam-abs/styles/theme.css';
+import './packages/agentsam-abs/styles/browser.css';
 import { streamPageGeneration } from './services/geminiService';
 import { useSpeechSynthesis } from './hooks/useSpeechSynthesis';
 import { AgentSamEnvironment } from './components/AgentSamEnvironment';
@@ -20,6 +26,7 @@ import { siteNameFromPrompt, parsePageFromHref, extractTitleFromHtml } from './u
 const App: React.FC = () => {
   // Settings Host Adapter Instance
   const settingsHost = useRef(new AgentSamDefaultSettingsHost()).current;
+  const absRuntime = useRef(createAbsRuntimeScene()).current;
 
   // Shell Workspace Page: 'browser' | 'gmail' | 'drive' | 'antigravity' | 'aihub' | 'acp' | 'settings'
   const [activePage, setActivePage] = useState<ShellPage>('browser');
@@ -59,6 +66,15 @@ const App: React.FC = () => {
   ) => {
     const tabIndex = activeTabIndex;
     const tabId = tabs[tabIndex].id;
+    const runtimeOperationId = `abs-build:${tabId}`;
+
+    absRuntime.begin(
+      runtimeOperationId,
+      currentHtml ? 'Updating the experience' : 'Building the experience',
+    );
+    if (currentHtml) {
+      absRuntime.context(runtimeOperationId, 'Reading the current page');
+    }
 
     // Abort any in-flight request for this tab
     const existingController = abortControllersRef.current.get(tabId);
@@ -88,6 +104,7 @@ const App: React.FC = () => {
     let pageGroundingSources: GroundingSource[] = [];
     let pageSearchEntryPointHtml = '';
     let titleExtracted = false;
+    let runtimeStreaming = false;
 
     try {
       const stream = streamPageGeneration(prompt, currentHtml, isGrounded, controller.signal, formState, window.innerWidth <= 768);
@@ -121,6 +138,10 @@ const App: React.FC = () => {
           } catch { }
           continue;
         }
+        if (!runtimeStreaming) {
+          runtimeStreaming = true;
+          absRuntime.streaming(runtimeOperationId, 'Building the interface');
+        }
         fullHtml += chunk;
 
         const currentFullHtml = fullHtml;
@@ -138,7 +159,10 @@ const App: React.FC = () => {
         }));
       }
 
-      if (controller.signal.aborted) return;
+      if (controller.signal.aborted) {
+        absRuntime.reset();
+        return;
+      }
 
       const finalBreadcrumb = titleExtracted
         ? (extractTitleFromHtml(fullHtml) || fallbackBreadcrumb)
@@ -181,9 +205,11 @@ const App: React.FC = () => {
         }
       });
 
+      absRuntime.complete(runtimeOperationId);
     } catch (e: any) {
       if (e?.name === 'AbortError' || controller.signal.aborted) return;
       console.error('Generation failed', e);
+      absRuntime.fail(runtimeOperationId, e instanceof Error ? e.message : String(e));
       updateTab(tabIndex, tab => ({
         ...tab,
         breadcrumb: fallbackBreadcrumb,
@@ -199,7 +225,7 @@ const App: React.FC = () => {
         abortControllersRef.current.delete(tabId);
       }
     }
-  }, [isGrounded, activeTabIndex, tabs, updateTab]);
+  }, [isGrounded, activeTabIndex, tabs, updateTab, absRuntime]);
 
   // -- Stop loading --
   const handleStop = useCallback(() => {
@@ -209,6 +235,7 @@ const App: React.FC = () => {
       controller.abort();
       abortControllersRef.current.delete(tabId);
     }
+    absRuntime.reset();
     updateTab(activeTabIndex, tab => ({
       ...tab,
       loading: false,
@@ -285,7 +312,7 @@ const App: React.FC = () => {
       const page = activeTab.history[activeTab.currentIndex - 1];
       if (page) setIsGrounded(page.isGrounded);
     }
-  }, [activeTab, activeTabIndex, updateTab, tts]);
+  }, [activeTab, activeTabIndex, updateTab, tts, absRuntime]);
 
   const handleForward = useCallback(() => {
     tts.stop();
@@ -346,6 +373,7 @@ const App: React.FC = () => {
       controller.abort();
       abortControllersRef.current.delete(tabId);
     }
+    absRuntime.reset();
 
     updateTab(activeTabIndex, tab => ({
       ...tab,
@@ -539,63 +567,43 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* 8. Generative Web Browser (AgentSamAutoBrowserShell) */}
+      {/* 8. AgentSam ABS: normal Explore browser + generative Build browser */}
       {activePage === 'browser' && (
-        <AgentSamAutoBrowserShell
+        <AgentSamAbsBrowser
           breadcrumb={activeTab.breadcrumb}
           isLoading={activeTab.loading}
-          loadingMessage={activeTab.loadingMessage}
+          loadingMessage={activeTab.loadingMessage || 'Building the experience'}
+          hasPageContent={hasPageContent}
+          tabs={tabs}
+          activeTabIndex={activeTabIndex}
+          canGoBack={activeTab.currentIndex > 0}
+          canGoForward={activeTab.currentIndex < activeTab.history.length - 1}
           onNavigate={handleOmnibarNavigate}
           onBack={handleBack}
           onForward={handleForward}
           onRefresh={handleRefresh}
           onStop={handleStop}
           onHome={handleHome}
-          canGoBack={activeTab.currentIndex > 0}
-          canGoForward={activeTab.currentIndex < activeTab.history.length - 1}
-          groundingSources={activeTab.groundingSources}
-          searchEntryPointHtml={activeTab.searchEntryPointHtml}
-          tabs={tabs}
-          activeTabIndex={activeTabIndex}
           onNewTab={handleNewTab}
           onCloseTab={handleCloseTab}
           onSwitchTab={handleSwitchTab}
-          isGrounded={isGrounded}
-          onToggleGrounding={() => setIsGrounded(prev => !prev)}
-          tts={tts}
-          hasPageContent={hasPageContent}
-          onToggleTts={handleToggleTts}
-          onLaunchAntigravity={() => setActivePage('antigravity')}
-          onOpenDrive={() => setActivePage('drive')}
-          onOpenAiHub={(tab) => {
-            setAiHubInitialTab(tab || 'chat');
-            setActivePage('aihub');
-          }}
-          history={activeTab.history}
-          currentHistoryIndex={activeTab.currentIndex}
-          onJumpToHistory={handleJumpToHistory}
-          currentHtml={displayContent}
-          onOpenGmailWorkspace={() => setActivePage('gmail')}
-          onOpenDriveWorkspace={() => setActivePage('drive')}
+          defaultMode="build"
         >
           {isNewTab ? (
-            <NewTab
-              onCreatePage={handleCreate}
-              onLaunchAntigravity={() => setActivePage('antigravity')}
-              onOpenDrive={() => setActivePage('drive')}
-              onOpenAiHub={(tab) => {
-                setAiHubInitialTab(tab || 'chat');
-                setActivePage('aihub');
-              }}
-            />
+            <AbsBuildHome onCreatePage={handleCreate} />
           ) : (
-            <Sandbox
-              htmlContent={displayContent}
-              onNavigate={handleLinkClick}
-              onAction={handleAction}
-            />
+            <AbsRuntimeSurface
+              controller={absRuntime.controller}
+              preset={absRuntime.preset}
+            >
+              <AbsGeneratedPreview
+                htmlContent={displayContent}
+                onNavigate={handleLinkClick}
+                onAction={handleAction}
+              />
+            </AbsRuntimeSurface>
           )}
-        </AgentSamAutoBrowserShell>
+        </AgentSamAbsBrowser>
       )}
 
       {/* Quick Google Drive Quick Save Modal (if opened while browsing) */}
