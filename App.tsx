@@ -13,6 +13,7 @@ import { AcpServerWorkspace } from './components/workspace/AcpServerWorkspace';
 import { GeminiAiHubModal, AiStudioTab } from './components/ai/GeminiAiHubModal';
 import { AcpAuthModal } from './components/auth/AcpAuthModal';
 import { SettingsShell, AgentSamDefaultSettingsHost } from './packages/agentsam-settings/src';
+import { RepoWireframeVisualizer } from './components/RepoWireframeVisualizer';
 import { Page, Breadcrumb, TokenCount, FormFieldState, GroundingSource, Tab, createTab } from './types';
 import { siteNameFromPrompt, parsePageFromHref, extractTitleFromHtml } from './utils/urlHelpers';
 
@@ -529,7 +530,16 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* 7. Generative Web Browser (AgentSamAutoBrowserShell) */}
+      {/* 7. Repo Architecture & Wireframe Visualizer */}
+      {activePage === 'wireframe' && (
+        <div className="flex-1 flex flex-col h-full overflow-hidden">
+          <RepoWireframeVisualizer
+            onClose={() => setActivePage('browser')}
+          />
+        </div>
+      )}
+
+      {/* 8. Generative Web Browser (AgentSamAutoBrowserShell) */}
       {activePage === 'browser' && (
         <AgentSamAutoBrowserShell
           breadcrumb={activeTab.breadcrumb}

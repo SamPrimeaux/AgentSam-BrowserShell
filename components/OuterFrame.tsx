@@ -71,7 +71,7 @@ const ElapsedTimer: React.FC<{ isActive: boolean }> = ({ isActive }) => {
   return <span>{elapsed.toFixed(2)}s</span>;
 };
 
-export type ShellPage = 'browser' | 'gmail' | 'drive' | 'antigravity' | 'aihub' | 'acp' | 'settings';
+export type ShellPage = 'browser' | 'gmail' | 'drive' | 'antigravity' | 'aihub' | 'acp' | 'settings' | 'wireframe';
 
 interface OuterFrameProps {
   children: React.ReactNode;
@@ -315,6 +315,19 @@ export const OuterFrame: React.FC<OuterFrameProps> = ({
                   <span className="material-symbols-outlined" style={{ fontSize: '15px', color: '#c084fc' }}>tune</span>
                   <span>Settings</span>
                   <span className="view-mode-badge" style={{ background: '#7e22ce', color: '#fff' }}>OPS</span>
+                </button>
+
+                <button
+                  id="tab-page-wireframe"
+                  type="button"
+                  onClick={() => handleSelectPage('wireframe')}
+                  className={`view-mode-btn ${currentPage === 'wireframe' ? 'active' : ''}`}
+                  title="Repo Architecture, 5-Family Taxonomy & Wireframe Map"
+                  style={currentPage === 'wireframe' ? { borderColor: '#38bdf8', color: '#7dd3fc', background: 'rgba(56, 189, 248, 0.15)' } : {}}
+                >
+                  <span className="material-symbols-outlined" style={{ fontSize: '15px', color: '#38bdf8' }}>schema</span>
+                  <span>Arch Map</span>
+                  <span className="view-mode-badge" style={{ background: '#0284c7', color: '#fff' }}>5-FAMILY</span>
                 </button>
               </nav>
 

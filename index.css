@@ -1,31 +1,36 @@
-/* Flash-Lite Browser — Dark Futuristic Theme */
+/* ======================================================================
+   @inneranimalmedia/agentsam-abs — Packaged Browser Shell & AntiGravity Theme Engine
+   Official design tokens, breadcrumb trails, glassmorphism & OS shell
+   ====================================================================== */
+@import "./packages/agentsam-abs/styles/theme.css";
 
-/* AgentSamRemix Browser & AntiGravity OS — Theme Engine */
+/* Application-level live custom property bindings */
 
 :root {
-  --app-bg: #000000;
-  --app-canvas-bg: #0c0d10;
-  --app-surface-1: #181a20;
-  --app-surface-2: #22252c;
-  --app-surface-3: #2e323b;
-  --app-border: #2d313b;
-  --app-border-hover: #434957;
-  --app-border-focus: #8ab4f8;
-  --app-text-primary: #ffffff;
-  --app-text-secondary: #c4c7cc;
-  --app-text-muted: #80868b;
-  --app-accent: #8ab4f8;
-  --app-accent-rgb: 138, 180, 248;
-  --app-accent-glow: rgba(138, 180, 248, 0.35);
-  --app-accent-hover: #1a73e8;
-  --app-success: #81c995;
+  --app-bg: #090A0E;
+  --app-canvas-bg: #090A0E;
+  --app-surface-1: #101117;
+  --app-surface-2: #171822;
+  --app-surface-3: #1f202d;
+  --app-border: #252636;
+  --app-border-hover: #383a52;
+  --app-border-focus: #8B5CF6;
+  --app-text-primary: #F7F5FB;
+  --app-text-secondary: #B5B1C0;
+  --app-text-muted: #7e798e;
+  --app-accent: #8B5CF6;
+  --app-accent-rgb: 139, 92, 246;
+  --app-accent-glow: rgba(139, 92, 246, 0.35);
+  --app-accent-hover: #B69AF8;
+  --app-accent-soft: #B69AF8;
+  --app-success: #4ADE9B;
   --app-warning: #fbbc04;
   --app-error: #f28b82;
-  --app-tab-bg: #1e2025;
-  --app-tab-active: #2c2f37;
-  --app-omnibar-bg: #16181e;
-  --app-omnibar-focus: #22252c;
-  --app-shadow: 0 8px 32px rgba(0, 0, 0, 0.65);
+  --app-tab-bg: #101117;
+  --app-tab-active: #171822;
+  --app-omnibar-bg: #101117;
+  --app-omnibar-focus: #171822;
+  --app-shadow: 0 8px 32px rgba(0, 0, 0, 0.75);
   --app-radius-base: 10px;
   --app-radius-card: 16px;
   --app-radius-pill: 24px;

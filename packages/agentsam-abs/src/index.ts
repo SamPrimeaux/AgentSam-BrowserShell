@@ -1,5 +1,6 @@
 export * from './types';
 export * from './client';
+export * from './theme';
 
 // Re-export the main React component
 export { AgentSamAutoBrowserShell } from '../../../components/AgentSamAutoBrowserShell';

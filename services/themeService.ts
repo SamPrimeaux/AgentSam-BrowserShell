@@ -37,6 +37,44 @@ export interface AppSettings {
 
 export const THEME_PALETTES: ThemePalette[] = [
   {
+    id: 'agentsam-violet',
+    name: 'AgentSam Violet (Flagship)',
+    tagline: 'Deep cosmic canvas (#090A0E), crisp surfaces, violet accent (#8B5CF6), and emerald positive (#4ADE9B)',
+    category: 'dark',
+    previewColors: {
+      bg: '#090A0E',
+      surface: '#101117',
+      accent: '#8B5CF6',
+      text: '#F7F5FB',
+    },
+    variables: {
+      '--app-bg': '#090A0E',
+      '--app-canvas-bg': '#090A0E',
+      '--app-surface-1': '#101117',
+      '--app-surface-2': '#171822',
+      '--app-surface-3': '#1f202d',
+      '--app-border': '#252636',
+      '--app-border-hover': '#383a52',
+      '--app-border-focus': '#8B5CF6',
+      '--app-text-primary': '#F7F5FB',
+      '--app-text-secondary': '#B5B1C0',
+      '--app-text-muted': '#7e798e',
+      '--app-accent': '#8B5CF6',
+      '--app-accent-rgb': '139, 92, 246',
+      '--app-accent-glow': 'rgba(139, 92, 246, 0.35)',
+      '--app-accent-hover': '#B69AF8',
+      '--app-accent-soft': '#B69AF8',
+      '--app-success': '#4ADE9B',
+      '--app-warning': '#fbbc04',
+      '--app-error': '#f28b82',
+      '--app-tab-bg': '#101117',
+      '--app-tab-active': '#171822',
+      '--app-omnibar-bg': '#101117',
+      '--app-omnibar-focus': '#171822',
+      '--app-shadow': '0 8px 32px rgba(0, 0, 0, 0.75)',
+    },
+  },
+  {
     id: 'midnight-titanium',
     name: 'Midnight Titanium',
     tagline: 'Refined dark slate with deep titanium finishes and sapphire accents',
@@ -335,6 +373,7 @@ export const THEME_PALETTES: ThemePalette[] = [
 ];
 
 export const ACCENT_SWATCHES = [
+  { name: 'AgentSam Violet', hex: '#8B5CF6' },
   { name: 'Google Blue', hex: '#8ab4f8' },
   { name: 'Neon Cyan', hex: '#00f2fe' },
   { name: 'Matrix Emerald', hex: '#10b981' },
@@ -345,7 +384,7 @@ export const ACCENT_SWATCHES = [
 ];
 
 export const DEFAULT_APP_SETTINGS: AppSettings = {
-  themeId: 'midnight-titanium',
+  themeId: 'agentsam-violet',
   customAccent: null,
   uiDensity: 'comfortable',
   borderRadius: 'medium',

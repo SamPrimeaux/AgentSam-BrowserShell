@@ -1,0 +1,191 @@
+/**
+ * @inneranimalmedia/agentsam-abs — Packaged Theme Engine
+ * 
+ * Official design tokens, CSS custom properties, responsive safe-area insets,
+ * outer shell styling, history breadcrumbs, and canvas textures for the
+ * AgentSam Auto Browser Shell (ABS) runtime.
+ * 
+ * Flagship Palette:
+ * Canvas:      #090A0E
+ * Surface:     #101117
+ * Raised:      #171822
+ * Text:        #F7F5FB
+ * Muted:       #B5B1C0
+ * Accent:      #8B5CF6
+ * Accent soft: #B69AF8
+ * Positive:    #4ADE9B
+ * 
+ * License: Apache-2.0
+ */
+
+:root {
+  /* Selected Palette Identity & Semantic Tokens */
+  --app-bg: #090A0E;
+  --app-canvas-bg: #090A0E;
+  --app-surface-1: #101117;
+  --app-surface-2: #171822;
+  --app-surface-3: #1f202d;
+  --app-border: #252636;
+  --app-border-hover: #383a52;
+  --app-border-focus: #8B5CF6;
+  --app-text-primary: #F7F5FB;
+  --app-text-secondary: #B5B1C0;
+  --app-text-muted: #7e798e;
+  --app-accent: #8B5CF6;
+  --app-accent-rgb: 139, 92, 246;
+  --app-accent-glow: rgba(139, 92, 246, 0.35);
+  --app-accent-hover: #B69AF8;
+  --app-accent-soft: #B69AF8;
+  --app-success: #4ADE9B;
+  --app-warning: #fbbc04;
+  --app-error: #f28b82;
+  --app-tab-bg: #101117;
+  --app-tab-active: #171822;
+  --app-omnibar-bg: #101117;
+  --app-omnibar-focus: #171822;
+  --app-shadow: 0 8px 32px rgba(0, 0, 0, 0.75);
+  --app-radius-base: 10px;
+  --app-radius-card: 16px;
+  --app-radius-pill: 24px;
+  --app-density-scale: 1;
+  --app-font-family: 'Google Sans Flex', 'Google Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --app-glow-opacity: 1;
+  --app-glass-filter: blur(16px);
+
+  /* Modern Notched Display Safe-Area CSS Insets */
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-left: env(safe-area-inset-left, 0px);
+  --safe-area-right: env(safe-area-inset-right, 0px);
+  --sat: var(--safe-area-top);
+  --sab: var(--safe-area-bottom);
+  --sal: var(--safe-area-left);
+  --sar: var(--safe-area-right);
+
+  /* Breadcrumb & Navigation Trail Tokens */
+  --abs-crumb-active-bg: rgba(139, 92, 246, 0.15);
+  --abs-crumb-active-border: rgba(139, 92, 246, 0.4);
+  --abs-crumb-hover-bg: rgba(255, 255, 255, 0.08);
+  --abs-crumb-divider-color: #383a52;
+  --abs-jump-badge-bg: #171822;
+  --abs-jump-badge-text: #B5B1C0;
+}
+
+/* ======================================================================
+   OUTER FRAME & APP SHELL
+   ====================================================================== */
+
+.outer-frame {
+  width: 100vw;
+  height: 100vh;
+  background: var(--app-bg, #090A0E);
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px 10px;
+  box-sizing: border-box;
+  font-family: var(--app-font-family);
+  overflow: hidden;
+  position: relative;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Canvas Backdrop Textures */
+.canvas-texture-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.canvas-texture-layer.pattern-dots {
+  background-image: radial-gradient(var(--app-border, #252636) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.canvas-texture-layer.pattern-grid {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.canvas-texture-layer.pattern-vignette {
+  background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.75) 100%);
+}
+
+.canvas-texture-layer.pattern-minimal {
+  display: none;
+}
+
+/* Smooth linear scaling for high-res desktop monitors */
+@media (min-height: 1081px) {
+  .outer-frame {
+    zoom: 1.25;
+  }
+}
+
+/* ======================================================================
+   AGENT SAM AUTO BROWSER SHELL (ABS) BREADCRUMBS & OMNIBAR
+   ====================================================================== */
+
+.abs-history-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 4px 8px;
+  background: var(--app-surface-1, #101117);
+  border-radius: var(--app-radius-base, 10px);
+  border: 1px solid var(--app-border, #252636);
+}
+
+.abs-history-breadcrumbs::-webkit-scrollbar {
+  display: none;
+}
+
+.abs-crumb-node {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--app-text-secondary, #B5B1C0);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.abs-crumb-node:hover {
+  background: var(--abs-crumb-hover-bg);
+  color: var(--app-text-primary, #F7F5FB);
+}
+
+.abs-crumb-node.is-active {
+  background: var(--abs-crumb-active-bg);
+  border-color: var(--abs-crumb-active-border);
+  color: var(--app-accent, #8B5CF6);
+  font-weight: 600;
+}
+
+.abs-crumb-jump-badge {
+  font-family: monospace;
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--abs-jump-badge-bg);
+  color: var(--abs-jump-badge-text);
+}
+
+.abs-crumb-separator {
+  color: var(--abs-crumb-divider-color);
+  font-size: 12px;
+  user-select: none;
+}

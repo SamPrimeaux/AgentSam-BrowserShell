@@ -30,11 +30,14 @@
     },
     "./types": {
       "types": "./dist/types.d.ts"
-    }
+    },
+    "./theme.css": "./styles/theme.css",
+    "./styles/*": "./styles/*"
   },
   "files": [
     "dist",
     "src",
+    "styles",
     "README.md",
     "LICENSE"
   ],

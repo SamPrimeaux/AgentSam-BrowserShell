@@ -18,6 +18,8 @@
   "capabilities": [
     "browser-shell",
     "history-breadcrumbs",
+    "packaged-theme",
+    "design-tokens",
     "cloud-save",
     "google-drive-sync",
     "gmail-drafting",
