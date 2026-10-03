@@ -1,3 +1,5 @@
+export type AbsBrowserMode = 'explore' | 'build';
+
 export interface Breadcrumb {
   sitename: string;
   page: string;
@@ -12,6 +14,12 @@ export interface TokenCount {
 export interface GroundingSource {
   title: string;
   uri: string;
+}
+
+export interface FormFieldState {
+  name: string;
+  type: string;
+  value: string;
 }
 
 export interface PageSnapshot {
@@ -41,31 +49,31 @@ export interface BrowserTabState {
   navigationId: number;
 }
 
-export type CloudDestination = 'drive' | 'gmail' | 'acp' | 'download';
-
-export interface CloudSaveOptions {
-  destination: CloudDestination;
-  fileName: string;
-  htmlContent: string;
-  pageTitle: string;
-  prompt?: string;
-  emailSubject?: string;
-  emailRecipient?: string;
+export interface AbsQuickLink {
+  label: string;
+  url: string;
 }
 
-export interface CloudSaveResult {
-  success: boolean;
-  destination: CloudDestination;
-  message: string;
-  linkUrl?: string;
-  fileId?: string;
-  timestamp: string;
+export type AbsGenerationIntent = 'create' | 'edit';
+
+export interface AbsGenerationRequest {
+  intent: AbsGenerationIntent;
+  prompt: string;
+  currentHtml: string | null;
+  formState?: FormFieldState[];
+  mobile?: boolean;
 }
 
-export interface AgentSamBrowserConfig {
-  endpoint?: string;
-  model?: string;
-  enableGrounding?: boolean;
-  ttsEnabled?: boolean;
-  acpServeUrl?: string;
+export type AbsGenerationEvent =
+  | { type: 'status'; label: string }
+  | { type: 'html'; chunk: string }
+  | { type: 'usage'; tokenCount: TokenCount }
+  | { type: 'grounding'; sources: GroundingSource[]; entryPointHtml?: string }
+  | { type: 'complete' };
+
+export interface AbsGenerationHost {
+  generate(
+    request: AbsGenerationRequest,
+    options?: { signal?: AbortSignal },
+  ): AsyncIterable<AbsGenerationEvent>;
 }

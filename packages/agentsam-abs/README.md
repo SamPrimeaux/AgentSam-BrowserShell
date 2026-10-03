@@ -1,81 +1,75 @@
 # @inneranimalmedia/agentsam-abs
 
-> **AgentSam Auto Browser Shell (`AgentSamAutoBrowserShell`)**: Autonomous AI-driven browser runtime with clickable history breadcrumbs, Agent Client Protocol (ACP) server integration, and multi-cloud sync (Google Drive, Gmail, ACP).
+AgentSam Auto Browser Shell (ABS) is the donor-staged browser system for turning a normal in-app browser into a provider-agnostic rapid development and presentation surface.
 
-[![npm version](https://img.shields.io/npm/v/@inneranimalmedia/agentsam-abs.svg)](https://www.npmjs.com/package/@inneranimalmedia/agentsam-abs)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+This package is being refined and approved in `SamPrimeaux/AgentSam-BrowserShell` before it is admitted to `agentsam-sdk`.
 
-## Features
+## Product contract
 
-- 🧭 **Clickable History Breadcrumb Navigation Bar**: Jump backward or forward to any previous page state in time with zero state corruption.
-- ☁️ **Cloud Connected Resources**: Direct one-click export and synchronization to **Google Drive**, **Gmail drafts**, **ACP daemon artifacts**, or local `.html`.
-- ⚡ **Multi-Language Architecture**: Native TypeScript/React components with official bindings & scaffolds for **Rust**, **Go**, and **Python**.
-- 🎙️ **Multi-Modal AI Integration**: Real-time voice dictation with waveform feedback, TTS page reading, and Gemini 2.5/3.1 model streaming.
-- 🛡️ **ACP & Invariant Security**: Strict boundary isolation and single-source-of-truth identity authority.
+ABS has two browser modes:
 
-## Installation
+- **Explore** — ordinary embedded web browsing, URL/search resolution, back/forward history, reload, external-open, and reference gathering.
+- **Build** — AgentSam-driven generation where prompts create or revise an interactive site, generated links become new build intents, actions become revisions, and generated page history remains navigable.
+
+The package does not own a model provider. A host supplies generation. Gemini, OpenAI, Workers AI, and local models remain host/runtime concerns.
+
+## Runtime visualization
+
+ABS consumes `@inneranimalmedia/agentsam-loading-scene` directly. Build work is visualized using the packaged `computationalHyperspace` preset and truthful runtime semantics. ABS does not ship a second spinner, skeleton, icon loader, or browser-specific animation engine.
+
+## Public surfaces
+
+```ts
+import {
+  AgentSamBrowserClient,
+  createAbsRuntimeScene,
+} from "@inneranimalmedia/agentsam-abs";
+
+import {
+  AgentSamAbsBrowser,
+  AbsBuildHome,
+  AbsGeneratedPreview,
+  AbsRuntimeSurface,
+} from "@inneranimalmedia/agentsam-abs/react";
+```
+
+Styles:
+
+```css
+@import "@inneranimalmedia/agentsam-abs/theme.css";
+@import "@inneranimalmedia/agentsam-abs/browser.css";
+```
+
+## Browser sandbox
+
+Generated HTML runs in an opaque-origin iframe with `allow-scripts allow-forms`, a restrictive CSP, an instance nonce, source validation, and a typed AgentSam bridge:
+
+```js
+window.AgentSamABS.navigate(href, label)
+window.AgentSamABS.performAction(intent, payload)
+```
+
+No generated page receives same-origin access to the host.
+
+## Theme
+
+The approved ABS palette is packaged in `src/theme.ts` and `styles/theme.css`:
+
+- Canvas `#090A0E`
+- Surface `#101117`
+- Raised `#171822`
+- Text `#F7F5FB`
+- Muted `#B5B1C0`
+- Accent `#8B5CF6`
+- Accent Soft `#B69AF8`
+- Positive `#4ADE9B`
+
+## Development gates
 
 ```bash
-# npm
-npm install @inneranimalmedia/agentsam-abs
-
-# pnpm
-pnpm add @inneranimalmedia/agentsam-abs
-
-# bun
-bun add @inneranimalmedia/agentsam-abs
+npm run typecheck
+npm test
+npm pack --dry-run
 ```
 
-## Quick Start (React / TypeScript)
-
-```tsx
-import React, { useState } from 'react';
-import { AgentSamAutoBrowserShell } from '@inneranimalmedia/agentsam-abs';
-
-export function MyApp() {
-  const [history, setHistory] = useState([]);
-  const [currentHistoryIndex, setCurrentHistoryIndex] = useState(-1);
-
-  return (
-    <AgentSamAutoBrowserShell
-      breadcrumb={{ sitename: 'My Generated App', page: 'dashboard' }}
-      isLoading={false}
-      loadingMessage=""
-      onNavigate={(type, prompt) => console.log('Navigate:', prompt)}
-      onBack={() => console.log('Back')}
-      onForward={() => console.log('Forward')}
-      onRefresh={() => console.log('Refresh')}
-      onStop={() => {}}
-      onHome={() => setCurrentHistoryIndex(-1)}
-      canGoBack={currentHistoryIndex > 0}
-      canGoForward={currentHistoryIndex < history.length - 1}
-      groundingSources={[]}
-      searchEntryPointHtml=""
-      tabs={[]}
-      activeTabIndex={0}
-      onNewTab={() => {}}
-      onCloseTab={() => {}}
-      onSwitchTab={() => {}}
-      isGrounded={false}
-      onToggleGrounding={() => {}}
-      history={history}
-      currentHistoryIndex={currentHistoryIndex}
-      onJumpToHistory={(targetIndex) => setCurrentHistoryIndex(targetIndex)}
-      currentHtml="<div>Hello AgentSam!</div>"
-    >
-      <iframe srcDoc="<div>Hello AgentSam!</div>" className="w-full h-full border-none" />
-    </AgentSamAutoBrowserShell>
-  );
-}
-```
-
-## Multi-Language Packages
-
-- **TypeScript / React**: `@inneranimalmedia/agentsam-abs` (this package)
-- **Rust**: `crates/agentsam-abs` (`cargo add agentsam-abs`)
-- **Go**: `pkg/agentsamabs` (`go get github.com/inneranimalmedia/agentsam-abs/go`)
-- **Python**: `python/agentsam_abs` (`pip install agentsam-abs`)
-
-## License
-
-Apache-2.0 © Inner Animal Media
+The donor package is not approved for SDK admission until those gates pass and the donor app is visually verified.

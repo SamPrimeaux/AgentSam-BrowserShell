@@ -1,124 +1,130 @@
-import {
-  AgentSamBrowserConfig,
-  BrowserTabState,
-  CloudSaveOptions,
-  CloudSaveResult,
-} from './types';
+import type { BrowserTabState, PageSnapshot } from './types.js';
 
-/**
- * Headless & programmatic client for AgentSamAutoBrowserShell.
- * Provides programmatic navigation, history state jumping, and cloud synchronization.
- */
+function makeTab(id: string): BrowserTabState {
+  return {
+    id,
+    history: [],
+    currentIndex: -1,
+    loading: false,
+    loadingMessage: '',
+    generatedContent: '',
+    breadcrumb: { sitename: '', page: '' },
+    tokenCount: null,
+    groundingSources: [],
+    searchEntryPointHtml: '',
+    navigationId: 0,
+  };
+}
+
+function applySnapshot(tab: BrowserTabState, index: number): BrowserTabState {
+  const page = tab.history[index];
+  if (!page) return tab;
+  return {
+    ...tab,
+    currentIndex: index,
+    navigationId: tab.navigationId + 1,
+    generatedContent: page.html,
+    breadcrumb: page.breadcrumb,
+    tokenCount: page.tokenCount,
+    groundingSources: page.groundingSources,
+    searchEntryPointHtml: page.searchEntryPointHtml,
+  };
+}
+
 export class AgentSamBrowserClient {
-  private config: AgentSamBrowserConfig;
-  private tabs: Map<string, BrowserTabState> = new Map();
-  private activeTabId: string = 'tab_0';
+  private tabs = new Map<string, BrowserTabState>();
+  private activeTabId: string;
+  private nextTab = 1;
 
-  constructor(config: AgentSamBrowserConfig = {}) {
-    this.config = {
-      endpoint: config.endpoint || '/api/gemini/generate',
-      model: config.model || 'gemini-2.5-flash',
-      enableGrounding: config.enableGrounding ?? false,
-      acpServeUrl: config.acpServeUrl || '/api/agentsam/acp',
-      ...config,
-    };
-
-    // Initialize root tab
-    this.tabs.set(this.activeTabId, {
-      id: this.activeTabId,
-      history: [],
-      currentIndex: -1,
-      loading: false,
-      loadingMessage: '',
-      generatedContent: '',
-      breadcrumb: { sitename: '', page: '' },
-      tokenCount: null,
-      groundingSources: [],
-      searchEntryPointHtml: '',
-      navigationId: 0,
-    });
+  constructor() {
+    this.activeTabId = 'tab-0';
+    this.tabs.set(this.activeTabId, makeTab(this.activeTabId));
   }
 
-  /**
-   * Get active tab state including current breadcrumb and full history trail
-   */
-  public getActiveTab(): BrowserTabState {
-    return this.tabs.get(this.activeTabId)!;
-  }
-
-  /**
-   * Clickable Breadcrumb History Jump: Jump back or forward to any historical page state
-   */
-  public jumpToHistory(targetIndex: number): BrowserTabState {
-    const tab = this.getActiveTab();
-    if (targetIndex >= 0 && targetIndex < tab.history.length) {
-      const page = tab.history[targetIndex];
-      tab.currentIndex = targetIndex;
-      tab.navigationId += 1;
-      tab.generatedContent = page.html;
-      tab.breadcrumb = page.breadcrumb;
-      tab.tokenCount = page.tokenCount;
-      tab.groundingSources = page.groundingSources;
-      tab.searchEntryPointHtml = page.searchEntryPointHtml;
-    } else if (targetIndex === -1) {
-      tab.currentIndex = -1;
-      tab.generatedContent = '';
-      tab.breadcrumb = { sitename: '', page: '' };
-    }
+  getActiveTab(): BrowserTabState {
+    const tab = this.tabs.get(this.activeTabId);
+    if (!tab) throw new Error('ABS active tab is missing');
     return tab;
   }
 
-  /**
-   * Save current page state to cloud connected resources
-   */
-  public async saveToCloud(options: CloudSaveOptions): Promise<CloudSaveResult> {
-    const { destination, fileName, htmlContent, pageTitle, prompt, emailSubject, emailRecipient } = options;
+  listTabs(): BrowserTabState[] {
+    return [...this.tabs.values()];
+  }
 
-    if (destination === 'acp') {
-      const res = await fetch(`${this.config.acpServeUrl}/tools/execute`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tool: 'file_diff',
-          parameters: {
-            filePath: `dist/${fileName}`,
-            contentLength: htmlContent.length,
-            title: pageTitle,
-          },
-        }),
-      });
-      const data = await res.json();
-      return {
-        success: true,
-        destination: 'acp',
-        message: `Registered artifact with ACP Server: ${fileName}`,
-        timestamp: new Date().toISOString(),
-      };
+  createTab(): BrowserTabState {
+    const id = `tab-${this.nextTab++}`;
+    const tab = makeTab(id);
+    this.tabs.set(id, tab);
+    this.activeTabId = id;
+    return tab;
+  }
+
+  switchTab(id: string): BrowserTabState {
+    if (!this.tabs.has(id)) throw new Error(`Unknown ABS tab: ${id}`);
+    this.activeTabId = id;
+    return this.getActiveTab();
+  }
+
+  closeTab(id: string): BrowserTabState {
+    this.tabs.delete(id);
+    if (this.tabs.size === 0) {
+      const replacement = makeTab(`tab-${this.nextTab++}`);
+      this.tabs.set(replacement.id, replacement);
     }
-
-    if (destination === 'download' && typeof window !== 'undefined') {
-      const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      return {
-        success: true,
-        destination: 'download',
-        message: `Downloaded ${fileName} to local disk`,
-        timestamp: new Date().toISOString(),
-      };
+    if (this.activeTabId === id) {
+      this.activeTabId = this.tabs.keys().next().value as string;
     }
+    return this.getActiveTab();
+  }
 
-    return {
-      success: true,
-      destination,
-      message: `Dispatched save request for ${fileName} to ${destination}`,
-      timestamp: new Date().toISOString(),
-    };
+  pushSnapshot(snapshot: PageSnapshot): BrowserTabState {
+    const tab = this.getActiveTab();
+    const history = [...tab.history.slice(0, tab.currentIndex + 1), snapshot];
+    const next = applySnapshot({ ...tab, history }, history.length - 1);
+    this.tabs.set(next.id, next);
+    return next;
+  }
+
+  replaceCurrent(snapshot: PageSnapshot): BrowserTabState {
+    const tab = this.getActiveTab();
+    if (tab.currentIndex < 0) return this.pushSnapshot(snapshot);
+    const history = [...tab.history];
+    history[tab.currentIndex] = snapshot;
+    const next = applySnapshot({ ...tab, history }, tab.currentIndex);
+    this.tabs.set(next.id, next);
+    return next;
+  }
+
+  jumpToHistory(index: number): BrowserTabState {
+    const tab = this.getActiveTab();
+    if (index === -1) {
+      const next: BrowserTabState = {
+        ...tab,
+        currentIndex: -1,
+        generatedContent: '',
+        breadcrumb: { sitename: '', page: '' },
+        tokenCount: null,
+        groundingSources: [],
+        searchEntryPointHtml: '',
+        navigationId: tab.navigationId + 1,
+      };
+      this.tabs.set(next.id, next);
+      return next;
+    }
+    if (index < 0 || index >= tab.history.length) return tab;
+    const next = applySnapshot(tab, index);
+    this.tabs.set(next.id, next);
+    return next;
+  }
+
+  back(): BrowserTabState {
+    const tab = this.getActiveTab();
+    return this.jumpToHistory(Math.max(-1, tab.currentIndex - 1));
+  }
+
+  forward(): BrowserTabState {
+    const tab = this.getActiveTab();
+    if (tab.currentIndex >= tab.history.length - 1) return tab;
+    return this.jumpToHistory(tab.currentIndex + 1);
   }
 }

@@ -8,25 +8,24 @@
   },
   "kind": "ui",
   "family": "browser-shell",
-  "summary": "Autonomous AI-driven browser runtime with clickable history breadcrumbs, ACP protocol integration, and multi-cloud sync.",
-  "status": "stable",
+  "summary": "Dual-mode Explore/Build browser surface with provider-agnostic generative navigation, sandboxed generated previews, deterministic history, and packaged runtime visualization.",
+  "status": "candidate",
   "visual": {
     "brandPack": "agentsam",
     "theme": "agdpg",
-    "modes": ["dark", "light"]
+    "modes": ["dark"]
   },
   "capabilities": [
-    "browser-shell",
-    "history-breadcrumbs",
+    "browser-explore",
+    "browser-build",
+    "generated-preview",
+    "generated-navigation",
+    "history-navigation",
     "packaged-theme",
-    "design-tokens",
-    "cloud-save",
-    "google-drive-sync",
-    "gmail-drafting",
-    "acp-artifact"
+    "runtime-loading-scene"
   ],
   "consumers": [
-    "@inneranimalmedia/agentsam-local-studio"
+    "AgentSam-BrowserShell donor"
   ],
   "preview": {
     "kind": "application",
