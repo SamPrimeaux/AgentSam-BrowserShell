@@ -1,0 +1,20 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-runtime-state",
+  "name": "AgentSam Runtime Visual Contract",
+  "package": { "name": "@inneranimalmedia/agentsam-runtime-state", "version": "1.0.0" },
+  "kind": "foundation",
+  "family": "runtime",
+  "summary": "Thirteen-state semantic runtime vocabulary plus the single adapter that projects producer events into loading scene, compact status, activity timeline, and analytics.",
+  "status": "candidate",
+  "capabilities": [
+    "runtime-vocabulary",
+    "runtime-event-adapter",
+    "compact-status",
+    "activity-timeline",
+    "loading-scene-binding",
+    "agentsam.runtime.v1"
+  ],
+  "related": ["agentsam-loading-scene", "agentsam-telemetry", "agentsam-contracts"],
+  "preview": { "kind": "package" }
+}

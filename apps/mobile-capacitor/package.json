@@ -1,0 +1,23 @@
+{
+  "name": "@inneranimalmedia/agentsam-mobile-capacitor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AgentSam mobile lane 2 of 4: Capacitor. Bootstrapping, platform adapter wiring, capacitor.config.json, native project metadata, and the shared capability demonstration screen.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lane:install": "npm i @capacitor/core @capacitor/cli @capacitor/filesystem @capacitor/camera @capacitor/preferences @capacitor/share @capacitor/clipboard @capacitor/network @capacitor/browser @capacitor/local-notifications",
+    "lane:add:ios": "npx cap add ios",
+    "lane:add:android": "npx cap add android",
+    "lane:sync": "npm run build && npx cap sync"
+  },
+  "dependencies": {
+    "@inneranimalmedia/agentsam-platform": "^1.0.0",
+    "@inneranimalmedia/agentsam-platform-capacitor": "^1.0.0",
+    "@inneranimalmedia/agentsam-proof": "^1.0.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  }
+}

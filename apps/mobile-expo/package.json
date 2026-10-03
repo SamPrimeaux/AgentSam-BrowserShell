@@ -1,0 +1,21 @@
+{
+  "name": "@inneranimalmedia/agentsam-mobile-expo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AgentSam mobile lane 3 of 4: Expo. Bootstrapping, platform adapter wiring, app.json/eas.json, and the capability demonstration screen in React Native primitives.",
+  "main": "App.tsx",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lane:install": "npx create-expo-app@latest . --template blank-typescript --no-install && npx expo install expo-file-system expo-image-picker expo-av expo-secure-store expo-notifications expo-clipboard expo-network expo-web-browser expo-task-manager expo-background-fetch",
+    "lane:start": "npx expo start",
+    "lane:ios": "npx expo run:ios",
+    "lane:android": "npx expo run:android"
+  },
+  "dependencies": {
+    "@inneranimalmedia/agentsam-platform": "^1.0.0",
+    "@inneranimalmedia/agentsam-platform-expo": "^1.0.0",
+    "@inneranimalmedia/agentsam-proof": "^1.0.0",
+    "@inneranimalmedia/agentsam-runtime-state": "^1.0.0",
+    "react": "^19.2.3"
+  }
+}

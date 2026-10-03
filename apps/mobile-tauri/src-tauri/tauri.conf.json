@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "AgentSam (Tauri lane)",
+  "version": "1.0.0",
+  "identifier": "com.inneranimals.agentsam.tauri",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:4173",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "withGlobalTauri": false,
+    "windows": [
+      {
+        "title": "AgentSam",
+        "width": 420,
+        "height": 900,
+        "resizable": true,
+        "backgroundColor": "#090A0E"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; connect-src 'self' https:"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "category": "Productivity",
+    "shortDescription": "AgentSam capability demonstration (Tauri lane)",
+    "iOS": { "minimumSystemVersion": "14.0" },
+    "android": { "minSdkVersion": 24 }
+  }
+}

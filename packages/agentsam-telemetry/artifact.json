@@ -1,0 +1,20 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-telemetry",
+  "name": "AgentSam Telemetry Boundary",
+  "package": { "name": "@inneranimalmedia/agentsam-telemetry", "version": "1.0.0" },
+  "kind": "foundation",
+  "family": "telemetry",
+  "summary": "Event envelopes (agentsam.runtime.v1 / activity.v1 / error.v1 / capability.v1), durable local spool with retry and dedupe, authenticated Worker gateway transport, and the rule that devices never hold the Basin credential.",
+  "status": "candidate",
+  "capabilities": [
+    "event-envelopes",
+    "local-event-spool",
+    "batching-retry-dedupe",
+    "worker-gateway-transport",
+    "ingestion-pipeline-contract",
+    "device-credential-policy"
+  ],
+  "related": ["agentsam-runtime-state", "agentsam-contracts"],
+  "preview": { "kind": "package" }
+}

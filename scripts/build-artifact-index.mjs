@@ -43,6 +43,7 @@ function findPackageDirs(baseDir) {
 
 const candidateDirs = [
   ...findPackageDirs(path.join(ROOT_DIR, 'packages')),
+  ...findPackageDirs(path.join(ROOT_DIR, 'apps')),
   ...findPackageDirs(ROOT_DIR),
 ];
 

@@ -1,0 +1,21 @@
+{
+  "appId": "com.inneranimals.agentsam.capacitor",
+  "appName": "AgentSam (Capacitor lane)",
+  "webDir": "dist",
+  "backgroundColor": "#090A0EFF",
+  "ios": {
+    "contentInset": "always",
+    "backgroundColor": "#090A0EFF"
+  },
+  "android": {
+    "backgroundColor": "#090A0EFF",
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "LocalNotifications": { "smallIcon": "ic_stat_agentsam", "iconColor": "#8B5CF6" },
+    "Camera": { "presentationStyle": "fullscreen" }
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

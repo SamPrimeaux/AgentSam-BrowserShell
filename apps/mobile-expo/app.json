@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "AgentSam (Expo lane)",
+    "slug": "agentsam-mobile-expo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "agentsam",
+    "backgroundColor": "#090A0E",
+    "splash": { "backgroundColor": "#090A0E", "resizeMode": "contain" },
+    "ios": {
+      "bundleIdentifier": "com.inneranimals.agentsam.expo",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "AgentSam captures photos you attach to a conversation.",
+        "NSMicrophoneUsageDescription": "AgentSam records voice prompts you choose to send.",
+        "NSPhotoLibraryUsageDescription": "AgentSam attaches images you pick from your library.",
+        "UIBackgroundModes": ["fetch", "processing"]
+      }
+    },
+    "android": {
+      "package": "com.inneranimals.agentsam.expo",
+      "adaptiveIcon": { "backgroundColor": "#090A0E" },
+      "permissions": ["CAMERA", "RECORD_AUDIO", "POST_NOTIFICATIONS", "ACCESS_NETWORK_STATE", "INTERNET"]
+    },
+    "plugins": ["expo-secure-store", "expo-notifications", "expo-image-picker"],
+    "extra": { "agentsamLane": "expo" }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-mobile-tauri",
+  "name": "AgentSam Mobile — Tauri Lane",
+  "package": { "name": "@inneranimalmedia/agentsam-mobile-tauri", "version": "1.0.0" },
+  "kind": "app",
+  "family": "mobile-lane",
+  "summary": "Deliberately thin Tauri v2 mobile lane: bootstrap, adapter wiring, tauri.conf.json, Rust capability commands, capability demonstration screen.",
+  "status": "experimental",
+  "capabilities": ["lane-bootstrap", "tauri-config", "rust-capability-boundary", "capability-demo", "cross-platform-proof"],
+  "related": ["agentsam-platform-tauri", "agentsam-proof", "agentsam-abs-crate"],
+  "preview": { "kind": "application", "route": "/" }
+}

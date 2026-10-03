@@ -1,0 +1,24 @@
+{
+  "name": "@inneranimalmedia/agentsam-telemetry",
+  "version": "1.0.0",
+  "description": "AgentSam analytics/event ingestion boundary: typed event envelopes, durable local spool (batching, backoff, dedupe), authenticated Worker gateway transport, and the device credential policy.",
+  "author": "Inner Animal Media <info@inneranimals.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "src", "README.md", "artifact.json"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node --test test/*.test.mjs",
+    "prepack": "npm run build"
+  },
+  "engines": { "node": ">=20.0.0" },
+  "publishConfig": { "access": "public" },
+  "keywords": ["agentsam", "telemetry", "analytics", "ingestion", "event-spool", "cloudflare-worker", "d1", "basin"]
+}

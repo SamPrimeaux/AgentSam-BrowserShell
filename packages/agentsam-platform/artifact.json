@@ -1,0 +1,35 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-platform",
+  "name": "AgentSam Platform Capabilities",
+  "package": {
+    "name": "@inneranimalmedia/agentsam-platform",
+    "version": "1.0.0"
+  },
+  "kind": "foundation",
+  "family": "platform",
+  "summary": "Portable capability contract (filesystem, camera, microphone, notifications, secureStore, share, clipboard, network, browser, terminal, localModels, backgroundExecution) plus the adapter interface every lane implements.",
+  "status": "candidate",
+  "capabilities": [
+    "capability-contract",
+    "capability-ports",
+    "adapter-contract",
+    "platform-runtime",
+    "react-bindings",
+    "memory-adapter"
+  ],
+  "consumers": [
+    "apps/mobile-pwa",
+    "apps/mobile-capacitor",
+    "apps/mobile-expo",
+    "apps/mobile-tauri"
+  ],
+  "related": [
+    "agentsam-contracts",
+    "agentsam-runtime-state",
+    "agentsam-browser-surface"
+  ],
+  "preview": {
+    "kind": "package"
+  }
+}
