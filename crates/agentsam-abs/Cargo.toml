@@ -1,0 +1,23 @@
+[package]
+name = "agentsam-abs"
+version = "1.0.0"
+edition = "2021"
+authors = ["Inner Animal Media <info@inneranimals.com>"]
+description = "Rust client and headless engine for AgentSam Auto Browser Shell (AgentSamAutoBrowserShell)"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/inneranimalmedia/agentsam-abs"
+keywords = ["agentsam", "browser-shell", "autonomous-browser", "acp", "cloud-sync"]
+categories = ["web-programming", "api-bindings", "development-tools"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.36", features = ["full"], optional = true }
+reqwest = { version = "0.12", features = ["json"], optional = true }
+async-trait = "0.1"
+thiserror = "1.0"
+
+[features]
+default = ["tokio", "reqwest"]
+headless = []
+client = ["tokio", "reqwest"]

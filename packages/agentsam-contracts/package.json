@@ -1,0 +1,47 @@
+{
+  "name": "@inneranimalmedia/agentsam-contracts",
+  "version": "1.0.0",
+  "description": "Framework-neutral shared AgentSam vocabulary: agent messages, artifacts, tool receipts, model inventory, observability, and host capability contracts.",
+  "author": "Inner Animal Media <info@inneranimals.com>",
+  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./models": {
+      "types": "./dist/models.d.ts",
+      "import": "./dist/models.js",
+      "require": "./dist/models.cjs"
+    },
+    "./observability": {
+      "types": "./dist/observability.d.ts",
+      "import": "./dist/observability.js",
+      "require": "./dist/observability.cjs"
+    },
+    "./host": {
+      "types": "./dist/host.d.ts",
+      "import": "./dist/host.js",
+      "require": "./dist/host.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": [
+    "agentsam",
+    "contracts",
+    "agent-client-protocol",
+    "observability",
+    "model-inventory"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-settings",
+  "name": "AgentSam Settings",
+  "package": {
+    "name": "@inneranimalmedia/agentsam-settings",
+    "version": "1.0.0"
+  },
+  "kind": "ui",
+  "family": "settings",
+  "summary": "First-class reusable AgentSam Settings product, SettingsShell, unit-scoped retrieval, and host adapter interfaces.",
+  "status": "stable",
+  "visual": {
+    "brandPack": "agentsam",
+    "theme": "agdpg",
+    "modes": ["dark", "light", "system"]
+  },
+  "capabilities": [
+    "settings-shell",
+    "unit-scoped-retrieval",
+    "observability-console",
+    "vault-management",
+    "unified-models"
+  ],
+  "consumers": [
+    "@inneranimalmedia/agentsam-local-studio"
+  ],
+  "preview": {
+    "kind": "application",
+    "fixture": "settings-shell-default"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "AgentSamRemix Browser",
+  "description": "Imagine any website, generated in real-time by AgentSam",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

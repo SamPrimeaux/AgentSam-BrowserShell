@@ -1,0 +1,35 @@
+{
+  "name": "@inneranimalmedia/agentsam-work-graph",
+  "version": "1.0.0",
+  "description": "Headless deterministic work graph, dependency edges, artifacts, evidence, and timeline projections for AgentSam.",
+  "author": "Inner Animal Media <info@inneranimals.com>",
+  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@inneranimalmedia/agentsam-contracts": "^1.0.0"
+  },
+  "keywords": [
+    "agentsam",
+    "work-graph",
+    "dag",
+    "planning",
+    "dependencies"
+  ]
+}

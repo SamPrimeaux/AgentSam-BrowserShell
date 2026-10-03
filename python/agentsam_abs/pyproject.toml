@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentsam-abs"
+version = "1.0.0"
+authors = [
+  { name="Inner Animal Media", email="info@inneranimals.com" },
+]
+description = "Python client and headless SDK for AgentSam Auto Browser Shell (AgentSamAutoBrowserShell)"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pydantic>=2.0.0",
+    "httpx>=0.25.0",
+]

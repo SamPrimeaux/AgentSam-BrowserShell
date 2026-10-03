@@ -1,0 +1,24 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-contracts",
+  "name": "AgentSam Contracts",
+  "package": {
+    "name": "@inneranimalmedia/agentsam-contracts",
+    "version": "1.0.0"
+  },
+  "kind": "foundation",
+  "family": "contracts",
+  "summary": "Framework-neutral shared AgentSam vocabulary: agent messages, artifacts, tool receipts, model inventory, and host capabilities.",
+  "status": "stable",
+  "capabilities": [
+    "messages",
+    "artifacts",
+    "tool-receipts",
+    "model-inventory",
+    "observability",
+    "host-capabilities"
+  ],
+  "preview": {
+    "kind": "package"
+  }
+}

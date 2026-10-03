@@ -1,0 +1,33 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-workbench",
+  "name": "AgentSam Workbench",
+  "package": {
+    "name": "@inneranimalmedia/agentsam-workbench",
+    "version": "1.0.0"
+  },
+  "kind": "ui",
+  "family": "workbench",
+  "summary": "Reusable interactive application machinery: AgentThread, Composer, ModelSelect, ToolReceipt, and TerminalSurface.",
+  "status": "stable",
+  "visual": {
+    "brandPack": "agentsam",
+    "theme": "agdpg",
+    "modes": ["dark", "light", "system"]
+  },
+  "capabilities": [
+    "composer",
+    "agent-thread",
+    "tool-receipts",
+    "voice-multimodal",
+    "model-select"
+  ],
+  "consumers": [
+    "@inneranimalmedia/agentsam-local-studio",
+    "@inneranimalmedia/agentsam-work"
+  ],
+  "preview": {
+    "kind": "component",
+    "fixture": "composer-default"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-abs",
+  "name": "AgentSam Auto Browser Shell",
+  "package": {
+    "name": "@inneranimalmedia/agentsam-abs",
+    "version": "1.0.0"
+  },
+  "kind": "ui",
+  "family": "browser-shell",
+  "summary": "Autonomous AI-driven browser runtime with clickable history breadcrumbs, ACP protocol integration, and multi-cloud sync.",
+  "status": "stable",
+  "visual": {
+    "brandPack": "agentsam",
+    "theme": "agdpg",
+    "modes": ["dark", "light"]
+  },
+  "capabilities": [
+    "browser-shell",
+    "history-breadcrumbs",
+    "cloud-save",
+    "google-drive-sync",
+    "gmail-drafting",
+    "acp-artifact"
+  ],
+  "consumers": [
+    "@inneranimalmedia/agentsam-local-studio"
+  ],
+  "preview": {
+    "kind": "application",
+    "fixture": "browser-shell-default"
+  }
+}

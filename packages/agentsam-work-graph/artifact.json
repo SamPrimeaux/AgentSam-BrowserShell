@@ -1,0 +1,26 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-work-graph",
+  "name": "AgentSam Work Graph",
+  "package": {
+    "name": "@inneranimalmedia/agentsam-work-graph",
+    "version": "1.0.0"
+  },
+  "kind": "foundation",
+  "family": "work-graph",
+  "summary": "Deterministic headless DAG work graph, dependency edges, artifacts, evidence, and timeline projections.",
+  "status": "stable",
+  "capabilities": [
+    "dag",
+    "topological-sort",
+    "timeline-projection",
+    "dependency-resolution"
+  ],
+  "consumers": [
+    "@inneranimalmedia/agentsam-workbench",
+    "@inneranimalmedia/agentsam-work"
+  ],
+  "preview": {
+    "kind": "package"
+  }
+}
