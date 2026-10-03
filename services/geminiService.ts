@@ -29,9 +29,8 @@ Set color-scheme to "light" or "dark" — choose whichever suits the site. Use o
 STYLING:
 Use Tailwind CSS utility classes for all styling. Create rich, polished, realistic-looking pages.
 Use Google Fonts for the site. Include the <link> tag in <head> and apply the font via an inline style on the <body> tag (e.g., style="font-family: 'Playfair Display', serif"). Each site should feel typographically distinct.
-For icons, use Material Symbols: <span class="material-symbols-outlined">icon_name</span> (e.g., home, search, settings, favorite, delete, mail, star).
-Use emojis generously for visual flair and as image placeholders.
-For images, use CSS gradients, inline SVGs, or emoji placeholders.
+For icons, use Material Symbols or inline SVG when needed. Do not use emoji characters anywhere in generated UI, labels, buttons, placeholders, or image stand-ins.
+For images, use CSS gradients, inline SVGs, generated assets supplied by the host, or restrained neutral placeholders.
 
 NAVIGATION:
 Use <a href="..."> tags with descriptive path-like hrefs (e.g., href="inbox/message-from-alice", href="settings/notifications").
