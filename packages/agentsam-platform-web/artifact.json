@@ -1,0 +1,14 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-platform-web",
+  "name": "AgentSam Web/PWA Adapter",
+  "package": { "name": "@inneranimalmedia/agentsam-platform-web", "version": "1.0.0" },
+  "kind": "runtime",
+  "family": "platform-adapter",
+  "summary": "Web and installable-PWA implementation of the AgentSam capability contract: OPFS filesystem, getUserMedia capture, Web Share, Async Clipboard, Notification API, and periodic background sync.",
+  "status": "candidate",
+  "capabilities": ["capability-probe", "capability-ports", "permission-request", "lane-pwa"],
+  "related": ["agentsam-platform"],
+  "consumers": ["apps/mobile-pwa"],
+  "preview": { "kind": "package" }
+}

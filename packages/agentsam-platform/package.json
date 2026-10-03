@@ -1,0 +1,57 @@
+{
+  "name": "@inneranimalmedia/agentsam-platform",
+  "version": "1.0.0",
+  "description": "Portable AgentSam platform capability contracts: one capability interface for Web/PWA, Capacitor, Expo, and Tauri Mobile hosts. UI asks for capabilities, never for platforms.",
+  "author": "Inner Animal Media <info@inneranimals.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "artifact.json"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "node --test test/*.test.mjs",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "agentsam",
+    "capabilities",
+    "platform-adapter",
+    "cross-platform",
+    "pwa",
+    "capacitor",
+    "expo",
+    "tauri"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-platform-tauri",
+  "name": "AgentSam Tauri Mobile Adapter",
+  "package": { "name": "@inneranimalmedia/agentsam-platform-tauri", "version": "1.0.0" },
+  "kind": "runtime",
+  "family": "platform-adapter",
+  "summary": "Tauri v2 (desktop + mobile) implementation of the AgentSam capability contract over a single structural bridge, with Rust owning device authority.",
+  "status": "candidate",
+  "capabilities": ["capability-probe", "capability-ports", "permission-request", "lane-tauri"],
+  "related": ["agentsam-platform"],
+  "consumers": ["apps/mobile-tauri"],
+  "preview": { "kind": "package" }
+}

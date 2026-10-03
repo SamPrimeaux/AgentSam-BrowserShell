@@ -1,0 +1,25 @@
+{
+  "name": "@inneranimalmedia/agentsam-mobile-tauri",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AgentSam mobile lane 4 of 4: Tauri v2 mobile. Bootstrapping, platform adapter wiring, tauri.conf.json, the Rust capability boundary, and the shared capability demonstration screen.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lane:install": "npm i @tauri-apps/api @tauri-apps/plugin-os && npm i -D @tauri-apps/cli",
+    "lane:dev": "npx tauri dev",
+    "lane:ios": "npx tauri ios dev",
+    "lane:android": "npx tauri android dev",
+    "lane:init:ios": "npx tauri ios init",
+    "lane:init:android": "npx tauri android init"
+  },
+  "dependencies": {
+    "@inneranimalmedia/agentsam-platform": "^1.0.0",
+    "@inneranimalmedia/agentsam-platform-tauri": "^1.0.0",
+    "@inneranimalmedia/agentsam-proof": "^1.0.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  }
+}

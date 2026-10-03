@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "typeRoots": ["./node_modules/@types", "./apps/mobile-expo/types"],
+    "paths": {
+      "@inneranimalmedia/agentsam-platform": ["./packages/agentsam-platform/src/index.ts"],
+      "@inneranimalmedia/agentsam-platform/react": ["./packages/agentsam-platform/src/react/index.tsx"],
+      "@inneranimalmedia/agentsam-platform-web": ["./packages/agentsam-platform-web/src/index.ts"],
+      "@inneranimalmedia/agentsam-platform-capacitor": ["./packages/agentsam-platform-capacitor/src/index.ts"],
+      "@inneranimalmedia/agentsam-platform-expo": ["./packages/agentsam-platform-expo/src/index.ts"],
+      "@inneranimalmedia/agentsam-platform-tauri": ["./packages/agentsam-platform-tauri/src/index.ts"],
+      "@inneranimalmedia/agentsam-runtime-state": ["./packages/agentsam-runtime-state/src/index.ts"],
+      "@inneranimalmedia/agentsam-telemetry": ["./packages/agentsam-telemetry/src/index.ts"],
+      "@inneranimalmedia/agentsam-browser-surface": ["./packages/agentsam-browser-surface/src/index.ts"],
+      "@inneranimalmedia/agentsam-proof": ["./packages/agentsam-proof/src/index.ts"],
+      "@inneranimalmedia/agentsam-proof/react": ["./packages/agentsam-proof/src/react/index.tsx"]
+    }
+  },
+  "include": [
+    "packages/agentsam-platform/src",
+    "packages/agentsam-platform-web/src",
+    "packages/agentsam-platform-capacitor/src",
+    "packages/agentsam-platform-expo/src",
+    "packages/agentsam-platform-tauri/src",
+    "packages/agentsam-runtime-state/src",
+    "packages/agentsam-telemetry/src",
+    "packages/agentsam-browser-surface/src",
+    "packages/agentsam-proof/src",
+    "apps/mobile-pwa/src",
+    "apps/mobile-capacitor/src",
+    "apps/mobile-expo/src",
+    "apps/mobile-expo/App.tsx",
+    "apps/mobile-expo/types",
+    "apps/mobile-tauri/src"
+  ]
+}

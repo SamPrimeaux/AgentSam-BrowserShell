@@ -1,0 +1,26 @@
+{
+  "name": "@inneranimalmedia/agentsam-platform-capacitor",
+  "version": "1.0.0",
+  "description": "Capacitor implementation of the AgentSam capability contract with dependency-injected plugins so the package compiles without the native toolchain.",
+  "author": "Inner Animal Media <info@inneranimals.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "src", "README.md", "artifact.json"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "@inneranimalmedia/agentsam-platform": "^1.0.0"
+  },
+  "engines": { "node": ">=20.0.0" },
+  "publishConfig": { "access": "public" },
+  "keywords": ["agentsam","capacitor","ios","android","capability-adapter"]
+}

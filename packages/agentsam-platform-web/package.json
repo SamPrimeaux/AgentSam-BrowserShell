@@ -1,0 +1,26 @@
+{
+  "name": "@inneranimalmedia/agentsam-platform-web",
+  "version": "1.0.0",
+  "description": "Web and installable-PWA implementation of the AgentSam capability contract: OPFS filesystem, getUserMedia capture, Web Share, Async Clipboard, Notification API, and periodic background sync.",
+  "author": "Inner Animal Media <info@inneranimals.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "src", "README.md", "artifact.json"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "@inneranimalmedia/agentsam-platform": "^1.0.0"
+  },
+  "engines": { "node": ">=20.0.0" },
+  "publishConfig": { "access": "public" },
+  "keywords": ["agentsam","pwa","web","capability-adapter","opfs","service-worker"]
+}

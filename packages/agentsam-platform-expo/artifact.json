@@ -1,0 +1,14 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-platform-expo",
+  "name": "AgentSam Expo Adapter",
+  "package": { "name": "@inneranimalmedia/agentsam-platform-expo", "version": "1.0.0" },
+  "kind": "runtime",
+  "family": "platform-adapter",
+  "summary": "Expo / React Native implementation of the AgentSam capability contract with dependency-injected expo-* modules and keychain-backed secure storage.",
+  "status": "candidate",
+  "capabilities": ["capability-probe", "capability-ports", "permission-request", "lane-expo"],
+  "related": ["agentsam-platform"],
+  "consumers": ["apps/mobile-expo"],
+  "preview": { "kind": "package" }
+}

@@ -1,0 +1,20 @@
+[package]
+name = "agentsam-mobile-tauri"
+version = "1.0.0"
+description = "AgentSam Tauri mobile lane: Rust-owned device authority behind the portable capability contract."
+authors = ["Inner Animal Media <info@inneranimals.com>"]
+license = "Apache-2.0"
+edition = "2021"
+rust-version = "1.77"
+
+[lib]
+name = "agentsam_mobile_tauri_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

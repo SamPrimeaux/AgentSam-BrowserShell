@@ -1,0 +1,14 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-proof",
+  "name": "AgentSam Cross-Platform Proof",
+  "package": { "name": "@inneranimalmedia/agentsam-proof", "version": "1.0.0" },
+  "kind": "runtime",
+  "family": "platform",
+  "summary": "Launch -> identify capabilities -> authenticate/local -> open lead conversation -> send prompt -> stream -> open artifact -> store local state -> emit activity event. One scenario, four lanes, comparable evidence.",
+  "status": "candidate",
+  "capabilities": ["proof-scenario", "lane-metrics", "comparison-table", "capability-demo-screen", "local-conversation-host"],
+  "related": ["agentsam-platform", "agentsam-runtime-state", "agentsam-telemetry"],
+  "consumers": ["apps/mobile-pwa", "apps/mobile-capacitor", "apps/mobile-expo", "apps/mobile-tauri"],
+  "preview": { "kind": "component" }
+}

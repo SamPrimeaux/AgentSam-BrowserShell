@@ -1,0 +1,14 @@
+{
+  "schema": "inneranimal.artifact.v1",
+  "id": "agentsam-platform-capacitor",
+  "name": "AgentSam Capacitor Adapter",
+  "package": { "name": "@inneranimalmedia/agentsam-platform-capacitor", "version": "1.0.0" },
+  "kind": "runtime",
+  "family": "platform-adapter",
+  "summary": "Capacitor implementation of the AgentSam capability contract with dependency-injected plugins so the package compiles without the native toolchain.",
+  "status": "candidate",
+  "capabilities": ["capability-probe", "capability-ports", "permission-request", "lane-capacitor"],
+  "related": ["agentsam-platform"],
+  "consumers": ["apps/mobile-capacitor"],
+  "preview": { "kind": "package" }
+}
