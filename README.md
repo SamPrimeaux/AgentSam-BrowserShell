@@ -1,5 +1,4 @@
-# AgentSam Local Studio & AntiGravity OS
-
+#AgentSam-BrowserShell
 > **Autonomous Generative Web Browser, Agent Client Protocol (ACP) Daemon, Deterministic GOAP Planner, and Multi-Cloud Workspace Monorepo.**
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue.svg)](https://www.typescriptlang.org/)
