@@ -65,6 +65,19 @@ test('fingerprints are stable and diffable', () => {
   assert.match(a, /^filesystem:unavailable\|/);
 });
 
+test('snapshot identity stays stable until platform state changes', async () => {
+  const platform = AgentSamPlatform.unprobed(createMemoryAdapter());
+
+  const first = platform.snapshot();
+  assert.equal(platform.snapshot(), first);
+
+  await platform.refresh();
+
+  const second = platform.snapshot();
+  assert.notEqual(second, first);
+  assert.equal(platform.snapshot(), second);
+});
+
 test('subscribers receive a snapshot on subscribe and on refresh', async () => {
   const platform = await AgentSamPlatform.create(createMemoryAdapter());
   const seen = [];

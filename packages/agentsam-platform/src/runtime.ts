@@ -51,6 +51,7 @@ export class AgentSamPlatform {
   private caps: AgentSamPlatformCapabilities = unknownCapabilities();
   private probedAt: string | null = null;
   private listeners = new Set<PlatformListener>();
+  private snapshotCache: PlatformSnapshot | null = null;
 
   private constructor(adapter: AgentSamPlatformAdapter) {
     this.adapter = adapter;
@@ -78,17 +79,21 @@ export class AgentSamPlatform {
   }
 
   snapshot(): PlatformSnapshot {
-    return {
-      identity: this.identity,
-      capabilities: this.caps,
-      fingerprint: capabilityFingerprint(this.caps),
-      probedAt: this.probedAt,
-    };
+    if (!this.snapshotCache) {
+      this.snapshotCache = {
+        identity: this.identity,
+        capabilities: this.caps,
+        fingerprint: capabilityFingerprint(this.caps),
+        probedAt: this.probedAt,
+      };
+    }
+    return this.snapshotCache;
   }
 
   async refresh(): Promise<AgentSamPlatformCapabilities> {
     this.caps = await this.adapter.probe();
     this.probedAt = new Date().toISOString();
+    this.snapshotCache = null;
     this.notify();
     return this.caps;
   }
@@ -114,6 +119,7 @@ export class AgentSamPlatform {
   async request(id: CapabilityId): Promise<CapabilityState> {
     const next = await this.adapter.request(id);
     this.caps = { ...this.caps, [id]: next };
+    this.snapshotCache = null;
     this.notify();
     return next;
   }

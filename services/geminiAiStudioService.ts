@@ -1,13 +1,32 @@
 import { GoogleGenAI, Modality } from "@google/genai";
 
-const ai = new GoogleGenAI({ 
-  apiKey: process.env.GEMINI_API_KEY,
-  httpOptions: {
-    headers: {
-      'User-Agent': 'aistudio-build',
-    }
+let aiClient: GoogleGenAI | null = null;
+
+function getAi(): GoogleGenAI {
+  const apiKey =
+    typeof process !== 'undefined' && process.env
+      ? process.env.GEMINI_API_KEY
+      : undefined;
+
+  if (!apiKey) {
+    throw new Error(
+      'Direct browser model credentials are disabled. Configure the host/provider bridge instead.',
+    );
   }
-});
+
+  if (!aiClient) {
+    aiClient = new GoogleGenAI({
+      apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        },
+      },
+    });
+  }
+
+  return aiClient;
+}
 
 // ==========================================
 // 1. GEMINI CHATBOT TYPES & SERVICE
@@ -90,7 +109,7 @@ export async function* streamChatMessage(
   }
 
   try {
-    const responseStream = await ai.models.generateContentStream({
+    const responseStream = await getAi().models.generateContentStream({
       model,
       contents,
       config,
@@ -164,7 +183,7 @@ export async function generateOrEditImage(options: GenerateImageOptions): Promis
   };
 
   try {
-    const response = await ai.models.generateContent({
+    const response = await getAi().models.generateContent({
       model,
       contents: { parts },
       config,
@@ -252,7 +271,7 @@ export async function generateVeoVideo(options: GenerateVideoOptions): Promise<G
 
   try {
     options.onStatusUpdate?.('Submitting video request to Veo engine...');
-    const operation = await ai.models.generateVideos(requestPayload);
+    const operation = await getAi().models.generateVideos(requestPayload);
     const operationName = operation.name;
 
     options.onStatusUpdate?.('Rendering motion frames with Veo 3.1 Fast...');
@@ -282,7 +301,7 @@ export async function generateVeoVideo(options: GenerateVideoOptions): Promise<G
         const { GenerateVideosOperation } = await import('@google/genai');
         const opCheck = new GenerateVideosOperation();
         opCheck.name = operationName;
-        currentOp = await ai.operations.getVideosOperation({ operation: opCheck });
+        currentOp = await getAi().operations.getVideosOperation({ operation: opCheck });
       } catch (pollErr) {
         console.warn('Polling error, retrying:', pollErr);
       }
@@ -382,7 +401,7 @@ export async function sendVoiceTurn(
       parts: [{ text: transcript }]
     });
 
-    const response = await ai.models.generateContent({
+    const response = await getAi().models.generateContent({
       model,
       contents: promptContents,
       config: {
@@ -420,7 +439,7 @@ export async function sendVoiceTurn(
   } catch (err) {
     console.warn('Live preview audio response fallback to standard text generation:', err);
     // Fallback to text model + Web Speech TTS
-    const fallbackResp = await ai.models.generateContent({
+    const fallbackResp = await getAi().models.generateContent({
       model: 'gemini-3.5-flash',
       contents: transcript,
       config: { systemInstruction }
