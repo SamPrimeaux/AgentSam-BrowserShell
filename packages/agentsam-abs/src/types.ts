@@ -1,4 +1,5 @@
 export type AbsBrowserMode = 'explore' | 'build';
+export type AbsThemeMode = 'dark' | 'light';
 
 export interface Breadcrumb {
   sitename: string;

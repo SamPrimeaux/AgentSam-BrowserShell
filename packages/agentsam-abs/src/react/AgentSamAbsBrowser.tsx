@@ -6,6 +6,7 @@ import {
 } from 'react';
 import type {
   AbsBrowserMode,
+  AbsThemeMode,
   AbsGenerationIntent,
   AbsQuickLink,
   Breadcrumb,
@@ -53,6 +54,11 @@ export interface AgentSamAbsBrowserProps {
   defaultMode?: AbsBrowserMode;
   onModeChange?: (mode: AbsBrowserMode) => void;
   exploreLinks?: AbsQuickLink[];
+  theme?: AbsThemeMode;
+  defaultTheme?: AbsThemeMode;
+  onThemeChange?: (theme: AbsThemeMode) => void;
+  toolbarActions?: ReactNode;
+  statusSlot?: ReactNode;
 }
 
 export function AgentSamAbsBrowser({
@@ -78,9 +84,16 @@ export function AgentSamAbsBrowser({
   defaultMode = 'explore',
   onModeChange,
   exploreLinks = DEFAULT_EXPLORE_LINKS,
+  theme: controlledTheme,
+  defaultTheme = 'dark',
+  onThemeChange,
+  toolbarActions,
+  statusSlot,
 }: AgentSamAbsBrowserProps) {
   const [localMode, setLocalMode] = useState<AbsBrowserMode>(defaultMode);
   const mode = controlledMode ?? localMode;
+  const [localTheme, setLocalTheme] = useState<AbsThemeMode>(defaultTheme);
+  const theme = controlledTheme ?? localTheme;
   const [buildDraft, setBuildDraft] = useState('');
   const [exploreDraft, setExploreDraft] = useState('');
   const [exploreHistory, setExploreHistory] = useState<string[]>([]);
@@ -99,6 +112,11 @@ export function AgentSamAbsBrowser({
   function setMode(next: AbsBrowserMode) {
     if (controlledMode === undefined) setLocalMode(next);
     onModeChange?.(next);
+  }
+
+  function setTheme(next: AbsThemeMode) {
+    if (controlledTheme === undefined) setLocalTheme(next);
+    onThemeChange?.(next);
   }
 
   function exploreGo(raw: string) {
@@ -127,7 +145,25 @@ export function AgentSamAbsBrowser({
   }
 
   return (
-    <section className="abs-browser" data-abs-mode={mode}>
+    <section className="abs-browser" data-abs-mode={mode} data-abs-theme={theme}>
+      <div className="abs-windowbar">
+        <div className="abs-brand-lockup">
+          <span className="abs-brand-mark" aria-hidden="true" />
+          <span className="abs-brand-name">AgentSam Browser</span>
+          <span className="abs-brand-mode">{mode === 'build' ? 'Build' : 'Explore'}</span>
+        </div>
+        <div className="abs-windowbar-spacer" />
+        {statusSlot ? <div className="abs-status-slot">{statusSlot}</div> : null}
+        {toolbarActions ? <div className="abs-toolbar-actions">{toolbarActions}</div> : null}
+        <button
+          type="button"
+          className="abs-theme-toggle"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          aria-label={'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' theme'}
+        >
+          {theme === 'dark' ? 'Light' : 'Dark'}
+        </button>
+      </div>
       {mode === 'build' && (
         <div className="abs-tabbar" role="tablist" aria-label="Build tabs">
           <div className="abs-tablist">
