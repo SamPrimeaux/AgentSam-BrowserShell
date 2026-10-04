@@ -1,7 +1,23 @@
 import { GoogleGenAI } from "@google/genai";
 import { TokenCount } from '../types';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+let aiClient: GoogleGenAI | null = null;
+
+function getAi(): GoogleGenAI {
+  const apiKey =
+    typeof process !== 'undefined' && process.env
+      ? process.env.GEMINI_API_KEY
+      : undefined;
+
+  if (!apiKey) {
+    throw new Error(
+      'Direct browser model credentials are disabled. Configure the host/provider bridge instead.',
+    );
+  }
+
+  if (!aiClient) aiClient = new GoogleGenAI({ apiKey });
+  return aiClient;
+}
 
 const MODEL_NAME = 'gemini-3.1-flash-lite-preview'; 
 
@@ -115,7 +131,7 @@ Create a complete, detailed, realistic-looking web page based on this descriptio
     // Pre-flight: get exact input token count
     let inputTokens = 0;
     try {
-      const countResult = await ai.models.countTokens({
+      const countResult = await getAi().models.countTokens({
         model: MODEL_NAME,
         contents: [
           { role: 'user', parts: [{ text: config.systemInstruction || '' }] },
@@ -130,7 +146,7 @@ Create a complete, detailed, realistic-looking web page based on this descriptio
     // Yield initial token estimate (exact input, zero output)
     yield `__TOKEN__${JSON.stringify({ input: inputTokens, output: 0, isEstimate: true })}`;
 
-    const responseStream = await ai.models.generateContentStream({
+    const responseStream = await getAi().models.generateContentStream({
       model: MODEL_NAME,
       contents: userPrompt,
       config: { ...config, ...(abortSignal ? { abortSignal } : {}) }
