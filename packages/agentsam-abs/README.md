@@ -73,3 +73,19 @@ npm pack --dry-run
 ```
 
 The donor package is not approved for SDK admission until those gates pass and the donor app is visually verified.
+
+## Presentation tokens
+
+```css
+@import "@inneranimalmedia/agentsam-abs/theme.css";   /* tokens + components */
+```
+
+```html
+<button class="as-button as-button--primary">Build</button>
+<button class="as-button as-button--ghost-glass">Preview</button>
+<button class="as-button as-button--subtle">Cancel</button>
+```
+
+`ghost-glass` is the elevated secondary action: white glass with a violet outline in dark,
+violet glass with a white outline in light. Keyboard focus, disabled, reduced-motion and a
+44px touch target are built in.

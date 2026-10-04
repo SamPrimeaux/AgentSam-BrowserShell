@@ -497,3 +497,25 @@
   .abs-explore-home-inner,
   .abs-build-home-inner { width: min(740px, calc(100% - 64px)); }
 }
+
+/* AGENTSAM SEMANTIC COMPONENT PACK INTEGRATION */
+
+.abs-theme-toggle,
+.abs-build-starters button,
+.abs-explore-links button {
+  border-color: var(--as-ghost-border, var(--app-border));
+  background: var(--as-ghost-bg, transparent);
+  color: var(--as-ghost-text, var(--app-text-primary));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--as-ghost-shadow, none);
+}
+
+.abs-theme-toggle:hover,
+.abs-build-starters button:hover,
+.abs-explore-links button:hover {
+  border-color: var(--as-ghost-border-hover, var(--app-border-hover));
+  background: var(--as-ghost-bg-hover, var(--app-surface-2));
+  box-shadow: var(--as-ghost-shadow-hover, none);
+}
+

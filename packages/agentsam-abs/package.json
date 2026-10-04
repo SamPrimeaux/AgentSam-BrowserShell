@@ -29,7 +29,9 @@
     },
     "./theme.css": "./styles/theme.css",
     "./browser.css": "./styles/browser.css",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./tokens.css": "./styles/tokens.css",
+    "./components.css": "./styles/components.css"
   },
   "files": [
     "dist",

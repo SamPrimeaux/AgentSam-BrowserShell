@@ -27,6 +27,7 @@ const ORDER = [
   'agentsam-platform-tauri',
   'agentsam-proof',
   'agentsam-abs',
+  'agentsam-sections',
 ];
 
 const only = process.argv.slice(2).filter((argument) => !argument.startsWith('-'));

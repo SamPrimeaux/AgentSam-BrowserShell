@@ -14,7 +14,10 @@
     "check:boundaries": "node scripts/check-platform-boundaries.mjs",
     "test:packages": "node --test packages/*/test/*.test.mjs",
     "verify": "npm run check:boundaries && npm run typecheck && npm run build:packages && npm run test:packages && npm run build:artifacts",
-    "dev:pwa": "vite --config apps/mobile-pwa/vite.config.ts"
+    "dev:pwa": "vite --config apps/mobile-pwa/vite.config.ts",
+    "dev:browser-site": "npm run dev --workspace @inneranimalmedia/agentsam-browser-site",
+    "build:browser-site": "npm run build --workspace @inneranimalmedia/agentsam-browser-site",
+    "typecheck:browser-site": "npm run typecheck --workspace @inneranimalmedia/agentsam-browser-site"
   },
   "dependencies": {
     "@google/genai": "^1.35.0",
