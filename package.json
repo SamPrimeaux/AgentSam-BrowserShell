@@ -19,6 +19,7 @@
   "dependencies": {
     "@google/genai": "^1.35.0",
     "@inneranimalmedia/agentsam-loading-scene": "2.6.10",
+    "@inneranimalmedia/agentsam-nav": "^2.6.10",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",

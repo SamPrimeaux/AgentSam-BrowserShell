@@ -1,0 +1,68 @@
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background: var(--app-bg, #090a0e);
+  color: var(--app-text-primary, #f7f5fb);
+  font-family: var(--app-font-family, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+}
+
+.agentsam-browser-app {
+  width: 100%;
+  height: 100dvh;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--app-bg, #090a0e);
+  color: var(--app-text-primary, #f7f5fb);
+}
+
+.agentsam-browser-app__main,
+.agentsam-browser-app__stage {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.agentsam-browser-app .outer-frame {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  background: var(--app-bg, #090a0e);
+}
+
+.agentsam-browser-app .outer-frame .canvas-texture-layer,
+.agentsam-browser-app .outer-frame .outer-header,
+.agentsam-browser-app .outer-frame > .footer {
+  display: none !important;
+}
+
+.agentsam-browser-app .outer-frame .main-container {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.agentsam-browser-app .outer-frame .browser-container {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+}
